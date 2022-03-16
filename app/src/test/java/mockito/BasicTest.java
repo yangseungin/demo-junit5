@@ -1,6 +1,7 @@
 package mockito;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +13,7 @@ import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -81,5 +83,31 @@ public class BasicTest {
 
         mockedList.clear();
     }
+
+    @Test
+    void verificationOrder(){
+        List mockList = mock(List.class);
+
+        mockList.add("was added first");
+        mockList.add("was added second");
+
+        InOrder inOrder = inOrder(mockList);
+
+        inOrder.verify(mockList).add("was added first");
+        inOrder.verify(mockList).add("was added second");
+
+        List firstMock = mock(List.class);
+        List secondMock = mock(List.class);
+
+        firstMock.add("was called first");
+        secondMock.add("was called second");
+
+        InOrder inOrder2 = inOrder(firstMock, secondMock);
+
+        inOrder2.verify(firstMock).add("was called first");
+        inOrder2.verify(secondMock).add("was called second");
+    }
+
+
 }
 

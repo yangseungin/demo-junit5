@@ -12,31 +12,31 @@ public class PasswordCheckTest {
 //    TODO 대문자 포함
 //    TODO 세규칙을 모두 충족하면 강함, 2개 충족하면 보통, 1개이사의 규칙을 충족하면 약함
 
+    private PasswordCheck passwordCheck = new PasswordCheck();
+
+    private void assertStrength(String password, PasswordType expSType){
+        PasswordType result = passwordCheck.check(password);
+        assertEquals(expSType, result);
+    }
+
     @Test
     @DisplayName("모든 규칙 만족")
     void meetAllRules() {
-        PasswordCheck passwordCheck = new PasswordCheck();
-        PasswordType result = passwordCheck.check("pass12!A");
-        assertEquals(PasswordType.STRONG, result);
+        assertStrength("pass12!A",PasswordType.STRONG);
 
-        PasswordType result2 = passwordCheck.check("abc432@Check");
-        assertEquals(PasswordType.STRONG, result2);
+        assertStrength("abc432@Check",PasswordType.STRONG);
     }
 
     @Test
     @DisplayName("길이가 8글자 미만이고 나머지 규칙을 만족하는 경우")
     void test1() {
-        PasswordCheck passwordCheck = new PasswordCheck();
-        PasswordType result = passwordCheck.check("ab1!D");
-        assertEquals(PasswordType.NORMAL, result);
+        assertStrength("ab1!D",PasswordType.NORMAL);
     }
 
     @Test
     @DisplayName("숫자를 포함하지않고 나머지 조건을 만족하는 경우")
     void test2() {
-        PasswordCheck passwordCheck = new PasswordCheck();
-        PasswordType result = passwordCheck.check("ab!@QWERTY");
-        assertEquals(PasswordType.NORMAL, result);
+        assertStrength("ab!@QWERTY",PasswordType.NORMAL);
     }
 
 

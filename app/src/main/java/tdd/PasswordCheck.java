@@ -12,7 +12,22 @@ public class PasswordCheck {
         boolean containNumber = isContainNumber(s);
         if (!containNumber)
             return PasswordType.NORMAL;
+
+        boolean containUpper = isContainUpper(s);
+        if (!containUpper)
+            return PasswordType.NORMAL;
+
+
         return PasswordType.STRONG;
+    }
+
+    private boolean isContainUpper(String s) {
+        for (char ch : s.toCharArray()) {
+            if (Character.isUpperCase(ch)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isContainNumber(String s) {

@@ -52,5 +52,10 @@ public class PasswordCheckTest {
         assertStrength("",PasswordType.INVALID);
     }
 
+    @Test
+    @DisplayName("대문자를 포함하지 않고 나머지 규칙을 만족하는 경우")
+    void not_contain_uppercase_letter(){
+        assertStrength("abcd123!@",PasswordType.NORMAL);
+    }
 
 }

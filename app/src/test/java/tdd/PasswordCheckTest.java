@@ -62,8 +62,16 @@ public class PasswordCheckTest {
     @DisplayName("길이가 8글자 이상인 경우")
     void if_only_condition_must_be_8_or_more_is_satisfied() {
         assertStrength("abcdefghijk", PasswordType.WEAK);
+    }
 
+    @Test
+    void if_only_number(){
+        assertStrength("12345",PasswordType.WEAK);
+    }
 
+    @Test
+    void only_uppercase_letter(){
+        assertStrength("ABCDE",PasswordType.WEAK);
     }
 
 }

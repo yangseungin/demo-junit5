@@ -13,6 +13,12 @@ public class PasswordCheck {
         if (lengthEnough && !containNumber && !containUpper) {
             return PasswordType.WEAK;
         }
+        if (!lengthEnough && containNumber && !containUpper) {
+            return PasswordType.WEAK;
+        }
+        if (!lengthEnough && !containNumber && containUpper) {
+            return PasswordType.WEAK;
+        }
 
         if (!lengthEnough) {
             return PasswordType.NORMAL;

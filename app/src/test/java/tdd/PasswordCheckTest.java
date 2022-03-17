@@ -14,7 +14,7 @@ public class PasswordCheckTest {
 
     private PasswordCheck passwordCheck = new PasswordCheck();
 
-    private void assertStrength(String password, PasswordType expSType){
+    private void assertStrength(String password, PasswordType expSType) {
         PasswordType result = passwordCheck.check(password);
         assertEquals(expSType, result);
     }
@@ -22,21 +22,34 @@ public class PasswordCheckTest {
     @Test
     @DisplayName("모든 규칙 만족")
     void meetAllRules() {
-        assertStrength("pass12!A",PasswordType.STRONG);
+        assertStrength("pass12!A", PasswordType.STRONG);
 
-        assertStrength("abc432@Check",PasswordType.STRONG);
+        assertStrength("abc432@Check", PasswordType.STRONG);
     }
 
     @Test
     @DisplayName("길이가 8글자 미만이고 나머지 규칙을 만족하는 경우")
     void test1() {
-        assertStrength("ab1!D",PasswordType.NORMAL);
+        assertStrength("ab1!D", PasswordType.NORMAL);
     }
 
     @Test
     @DisplayName("숫자를 포함하지않고 나머지 조건을 만족하는 경우")
     void test2() {
-        assertStrength("ab!@QWERTY",PasswordType.NORMAL);
+        assertStrength("ab!@QWERTY", PasswordType.NORMAL);
+    }
+
+    @Test
+    @DisplayName("null인 경우")
+    void input_null() {
+//        TODO - 값이 없는경우 PasswordType.INVALID를 리턴하도록 작성
+        assertStrength(null, PasswordType.INVALID);
+    }
+
+    @Test
+    @DisplayName("빈 문자열인 경우")
+    void input_empty(){
+        assertStrength("",PasswordType.INVALID);
     }
 
 

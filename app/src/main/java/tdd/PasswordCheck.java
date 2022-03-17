@@ -2,6 +2,10 @@ package tdd;
 
 public class PasswordCheck {
     public PasswordType check(String s) {
+        if (s == null || s.isEmpty()) {
+            return PasswordType.INVALID;
+        }
+
         if (s.length() < 8) {
             return PasswordType.NORMAL;
         }

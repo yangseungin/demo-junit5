@@ -5,30 +5,27 @@ public class PasswordCheck {
         if (s == null || s.isEmpty()) {
             return PasswordType.INVALID;
         }
+        int metCount = 0;
 
         boolean containNumber = isContainNumber(s);
         boolean containUpper = isContainUpper(s);
         boolean lengthEnough = s.length() >= 8;
 
-        if (lengthEnough && !containNumber && !containUpper) {
+        if (lengthEnough) {
+            metCount++;
+        }
+        if (containNumber) {
+            metCount++;
+        }
+        if (containUpper) {
+            metCount++;
+        }
+        if (metCount <= 1) {
             return PasswordType.WEAK;
         }
-        if (!lengthEnough && containNumber && !containUpper) {
-            return PasswordType.WEAK;
-        }
-        if (!lengthEnough && !containNumber && containUpper) {
-            return PasswordType.WEAK;
-        }
-
-        if (!lengthEnough) {
+        if (metCount == 2) {
             return PasswordType.NORMAL;
         }
-        if (!containNumber)
-            return PasswordType.NORMAL;
-
-        if (!containUpper)
-            return PasswordType.NORMAL;
-
 
         return PasswordType.STRONG;
     }

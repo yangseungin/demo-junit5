@@ -65,13 +65,22 @@ public class PasswordCheckTest {
     }
 
     @Test
-    void if_only_number(){
-        assertStrength("12345",PasswordType.WEAK);
+    @DisplayName("숫자 조건만 충족하는 경우")
+    void if_only_number() {
+        assertStrength("12345", PasswordType.WEAK);
     }
 
     @Test
-    void only_uppercase_letter(){
-        assertStrength("ABCDE",PasswordType.WEAK);
+    @DisplayName("대문자 조건만 충족하는 경우")
+    void only_uppercase_letter() {
+        assertStrength("ABCDE", PasswordType.WEAK);
     }
+
+    @Test
+    @DisplayName("아무조건도 충족하지 않는 경우")
+    void none_of_the_conditions_met() {
+        assertStrength("abc", PasswordType.WEAK);
+    }
+
 
 }

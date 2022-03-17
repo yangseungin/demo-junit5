@@ -48,14 +48,22 @@ public class PasswordCheckTest {
 
     @Test
     @DisplayName("빈 문자열인 경우")
-    void input_empty(){
-        assertStrength("",PasswordType.INVALID);
+    void input_empty() {
+        assertStrength("", PasswordType.INVALID);
     }
 
     @Test
     @DisplayName("대문자를 포함하지 않고 나머지 규칙을 만족하는 경우")
-    void not_contain_uppercase_letter(){
-        assertStrength("abcd123!@",PasswordType.NORMAL);
+    void not_contain_uppercase_letter() {
+        assertStrength("abcd123!@", PasswordType.NORMAL);
+    }
+
+    @Test
+    @DisplayName("길이가 8글자 이상인 경우")
+    void if_only_condition_must_be_8_or_more_is_satisfied() {
+        assertStrength("abcdefghijk", PasswordType.WEAK);
+
+
     }
 
 }

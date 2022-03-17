@@ -1,5 +1,5 @@
 package tdd;
 
 public enum PasswordType {
-    NORMAL, INVALID, STRONG
+    NORMAL, INVALID, WEAK, STRONG
 }

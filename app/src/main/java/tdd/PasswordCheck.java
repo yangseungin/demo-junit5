@@ -6,14 +6,20 @@ public class PasswordCheck {
             return PasswordType.INVALID;
         }
 
-        if (s.length() < 8) {
+        boolean containNumber = isContainNumber(s);
+        boolean containUpper = isContainUpper(s);
+        boolean lengthEnough = s.length() >= 8;
+
+        if (lengthEnough && !containNumber && !containUpper) {
+            return PasswordType.WEAK;
+        }
+
+        if (!lengthEnough) {
             return PasswordType.NORMAL;
         }
-        boolean containNumber = isContainNumber(s);
         if (!containNumber)
             return PasswordType.NORMAL;
 
-        boolean containUpper = isContainUpper(s);
         if (!containUpper)
             return PasswordType.NORMAL;
 

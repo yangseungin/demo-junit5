@@ -1,6 +1,8 @@
 package tdd;
 
 import org.junit.jupiter.api.Test;
+import tdd.expire_date.ExpireDateCalculator;
+import tdd.expire_date.PayData;
 
 import java.time.LocalDate;
 
@@ -15,21 +17,28 @@ public class ExpireDateCalculatorTest {
     @Test
     void 만원_납부시_한달뒤가_만료일() {
         assertExpireDate(
-                LocalDate.of(2022, 3, 21),
-                10_000,
+                PayData.builder()
+                        .billingDate(LocalDate.of(2022, 3, 21))
+                        .payAmount(10_000)
+                        .build(),
                 LocalDate.of(2022, 4, 21)
+
         );
 
         assertExpireDate(
-                LocalDate.of(2022, 6, 6),
-                10_000,
+                PayData.builder()
+                        .billingDate(LocalDate.of(2022, 6, 6))
+                        .payAmount(10_000)
+                        .build(),
                 LocalDate.of(2022, 7, 6)
         );
+
     }
 
-    private void assertExpireDate(LocalDate billingDate, int payAmount, LocalDate expectedExpireDate) {
+
+    private void assertExpireDate(PayData payData, LocalDate expectedExpireDate) {
         ExpireDateCalculator expireDateCalculator = new ExpireDateCalculator();
-        LocalDate expireDate = expireDateCalculator.calculateExpireDate(billingDate, payAmount);
+        LocalDate expireDate = expireDateCalculator.calculateExpireDate(payData);
 
         assertEquals(expectedExpireDate, expireDate);
     }

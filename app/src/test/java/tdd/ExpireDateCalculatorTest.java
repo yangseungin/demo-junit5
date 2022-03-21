@@ -35,6 +35,36 @@ public class ExpireDateCalculatorTest {
 
     }
 
+    @Test
+    void 납부일과_만료일의_일자가_다를때_만원납부() {
+        PayData payData = PayData.builder()
+                .firstBillingDate(LocalDate.of(2022, 1, 31))
+                .billingDate(LocalDate.of(2022, 2, 28))
+                .payAmount(10_000)
+                .build();
+
+        assertExpireDate(payData, LocalDate.of(2022, 3, 31));
+
+        PayData payData2 = PayData.builder()
+                .firstBillingDate(LocalDate.of(2022, 1, 30))
+                .billingDate(LocalDate.of(2022, 2, 28))
+                .payAmount(10_000)
+                .build();
+
+        assertExpireDate(payData2, LocalDate.of(2022, 3, 30));
+
+        PayData payData3 = PayData.builder()
+                .firstBillingDate(LocalDate.of(2022, 5, 31))
+                .billingDate(LocalDate.of(2022, 6, 30))
+                .payAmount(10_000)
+                .build();
+
+        assertExpireDate(payData3, LocalDate.of(2022, 7, 31));
+
+
+
+
+    }
 
     private void assertExpireDate(PayData payData, LocalDate expectedExpireDate) {
         ExpireDateCalculator expireDateCalculator = new ExpireDateCalculator();

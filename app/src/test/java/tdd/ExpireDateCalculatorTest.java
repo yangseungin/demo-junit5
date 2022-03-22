@@ -60,11 +60,69 @@ public class ExpireDateCalculatorTest {
                 .build();
 
         assertExpireDate(payData3, LocalDate.of(2022, 7, 31));
-
-
-
-
     }
+    @Test
+    void n만원_이상납부하면_n달뒤_만료일() {
+        assertExpireDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2022,3,1))
+                        .payAmount(20_000)
+                        .build(),
+                LocalDate.of(2022,5,1)
+        );
+
+        assertExpireDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2022,3,1))
+                        .payAmount(30_000)
+                        .build(),
+                LocalDate.of(2022,6,1)
+        );
+    }
+
+    @Test
+    void 첫납부일과_만료일자_다를때_n만원_이상납부() {
+        assertExpireDate(
+                PayData.builder()
+                        .firstBillingDate(LocalDate.of(2022,1,31))
+                        .billingDate(LocalDate.of(2022,2,28))
+                        .payAmount(20_000)
+                        .build(),
+                LocalDate.of(2022,4,30)
+        );
+
+        assertExpireDate(
+                PayData.builder()
+                        .firstBillingDate(LocalDate.of(2022,3,31))
+                        .billingDate(LocalDate.of(2022,4,30))
+                        .payAmount(30_000)
+                        .build(),
+                LocalDate.of(2022,7,31)
+        );
+    }
+
+    @Test
+    void 십만원_납부하면_1년_제공() {
+        assertExpireDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2022,1,28))
+                        .payAmount(100_000)
+                        .build(),
+                LocalDate.of(2023,1,28)
+
+        );
+
+        assertExpireDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2022,1,28))
+                        .payAmount(130_000)
+                        .build(),
+                LocalDate.of(2023,4,28)
+
+        );
+    }
+
+
 
     private void assertExpireDate(PayData payData, LocalDate expectedExpireDate) {
         ExpireDateCalculator expireDateCalculator = new ExpireDateCalculator();
